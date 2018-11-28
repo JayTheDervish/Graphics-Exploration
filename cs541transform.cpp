@@ -338,6 +338,7 @@ void main() {\
 	uniform vec3 light_color;\
 	uniform sampler2D usampler;\
 uniform sampler2D shadow_sampler;\
+	uniform sampler2D norm_sampler;\
 	in vec4 normal_vector;\
 	in vec4 light_vector;\
 	in vec2 vtexture_coord;\
@@ -346,6 +347,8 @@ in vec4 vshadow_position;\
 	out vec4 frag_color;\
 	void main(void) {\
 		vec3 diffuse_color = texture(usampler, vtexture_coord).xyz;\
+		vec3 normal_texture = texture(norm_sampler, vtexture_coord).xyz;\
+		normal_texture = normalize(normal_texture * 2.0 - 1.0);\
 		vec4 m = normalize(normal_vector);\
 		vec4 L = normalize(light_vector);\
         vec4 v = normalize(camera_vector);\
